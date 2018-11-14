@@ -146,7 +146,13 @@ function RedisBackend(conf) {
         // on redis result..
         self.redis.on('pmessage', function(pattern, channel, data) {
             backend_ex.expire(channel, conf.TASK_RESULT_EXPIRES / 1000);
-            var message = JSON.parse(data);
+            var message = {};
+            try {
+                var message = JSON.parse(data);
+            } catch(e){
+                console.log('error json parse', e, self.taskid, err);
+                console.log('json message', data);
+            }
             var taskid = channel.slice(key_prefix.length);
             if (self.results.hasOwnProperty(taskid)) {
                 var res = self.results[taskid];
