@@ -364,7 +364,7 @@ Result.prototype.get = function(callback) {
             try {
                 self.result = JSON.parse(reply);
             } catch(e){
-                console.error('error json parse', e, self.taskid, err);
+                console.log('error json parse', e, self.taskid, err);
                 self.result = {};
             }
             callback(self.result);
