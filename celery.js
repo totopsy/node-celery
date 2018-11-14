@@ -355,7 +355,12 @@ Result.prototype.get = function(callback) {
     var self = this;
     if (callback && self.result === null) {
         self.client.backend.get(self.taskid, function(err, reply) {
-            self.result = JSON.parse(reply);
+            try {
+                self.result = JSON.parse(reply);
+            } catch(e){
+                console.error('error json parse', e, self.taskid, err);
+                self.result = {};
+            }
             callback(self.result);
         });
     } else {
