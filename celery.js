@@ -150,7 +150,7 @@ function RedisBackend(conf) {
             try {
                 var message = JSON.parse(data);
             } catch(e){
-                console.log('error json parse', e, self.taskid, err);
+                console.log('error json parse', e, self.taskid);
                 console.log('json message', data);
             }
             var taskid = channel.slice(key_prefix.length);
